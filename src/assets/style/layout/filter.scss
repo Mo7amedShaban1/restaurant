@@ -1,0 +1,52 @@
+
+.filter{
+    width: 100%;
+    margin: 60px 0;
+    position: relative;
+    .filter__dropdown{
+        width: 100%;
+        background: #000;
+        color: #fff;
+        border: 1px solid #676767;
+        padding: 8px 40px;
+        border-radius: 30px;
+        text-align: left;
+        outline: none;
+        z-index: 9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+    }
+    .filter__nav{
+        background: rgb(255, 255, 255);
+        padding: 10px;
+        margin-bottom: 0;
+        margin-top: -20px;
+        padding-top: 30px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        text-transform: capitalize;
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+        visibility: hidden;
+        opacity: 0;
+        transition: .5s ease-in-out;
+        &.active{
+            visibility:visible;
+            opacity: 1;
+        }
+        a{
+            display: block;
+            text-decoration: none;
+            color:black;
+            padding: 7px 30px;
+            transition: .5s ease-in-out;
+            &.active,&:hover{
+                background: #ddd;
+            }
+        }
+    }
+
+}

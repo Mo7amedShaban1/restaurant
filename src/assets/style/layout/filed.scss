@@ -1,0 +1,53 @@
+.input{
+    margin-bottom: 30px;
+    label{
+        color: #000;
+        font-weight: bold;
+        display: block;
+        text-transform: capitalize;
+        margin-bottom: 0
+    }
+    input,textarea{
+        width:100%;
+        border: 0;
+        border-bottom: 1px solid #ddd;
+        height: 40px;
+        outline: none;
+    }
+    input:focus{
+        border-bottom: 1px solid $main-color;
+    }
+}
+
+.social-media{
+    a{
+        background: $main-color;
+        color: #fff;
+        width: 40px;
+        display: inline-block;
+        height: 40px;
+        border-radius: 50%;
+        line-height: 40px;
+        font-size: 20px;
+    }
+}
+
+.checkout{
+    .input{
+        margin: 15px 0
+    }
+    input{
+        border:1px solid #ddd;
+        padding:20px ;
+        &:focus{
+            border: 1px solid $main-color;
+        }
+    }
+    textarea{
+        border:1px solid #ddd;
+        padding:20px;
+        overflow: auto;
+        resize: none;
+        height: 70px;
+    }
+}

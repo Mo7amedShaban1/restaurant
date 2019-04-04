@@ -1,0 +1,130 @@
+@font-face {
+    font-family: "AliandoRocky";
+    src: url("../font/AliandoRocky.ttf")
+}
+
+.title{
+    font-family: AliandoRocky;
+    color:$main-color;
+    font-weight: lighter;
+    font-size: 50px;
+    margin-bottom: 0;
+}
+
+.title.small{
+    font-size:35px
+}
+
+.default_btn{
+    background: $main-color;
+    border:1px solid ;
+    color:#fff;
+    width:100%;
+    text-transform: capitalize;
+    padding: 10px;
+    margin-top: 30px;
+    outline: none;
+    font-size:18px;
+    transition: all 1s ease;
+    outline: none!important;
+    &:hover{
+        background: none;
+        color:$main-color;
+        border:1px solid ;
+    }
+}
+
+.btn2{
+    background: none;
+    color:$main-color;
+    border:1px solid ;
+    &:hover{
+        background: $main-color;
+        color:#fff;
+    }
+}
+
+.br-radius{
+    border-radius: 30px;
+}
+
+.text-center{
+    text-align: center
+}
+
+.inline-block{
+    display: inline-block
+}
+
+.block{
+    display: block
+}
+
+.form{
+    padding-top:40px
+}
+
+.fixed_bottom{
+    position: fixed;
+    bottom:0;
+    left:0;
+    z-index: 99;
+    &.div{
+        background: #fff;
+        box-shadow: 0px 0px 0px rgba(0,0,0,.5), -3px -3px 3px rgba(0,0,0,.2);
+    }
+}
+
+.inherit{
+    position: inherit!important;
+}
+.absolute{
+    position: absolute!important;
+}
+
+.no-background{
+    background: none
+}
+
+.order_information{
+    strong{
+        color:#777
+    }
+}
+
+.oops{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    background: #eff5f3;
+    img{
+        max-width: 100%;
+    };
+}
+
+.notify,.notify-internet{
+    position: fixed;
+    width: 400px;
+    text-align: center;
+    color: #fff;
+    text-transform: capitalize;
+    padding: 15px;
+    left: 0;
+    top: 30px;
+    visibility:hidden;
+    opacity: 0;
+    z-index: 99;
+    transition: all .5s ease-in;
+    &.active{
+        opacity: 1;
+        visibility:inherit;
+    }
+}
+
+.notify.success{
+    background: $main-color;
+}
+
+.notify.warning,.notify-internet{
+    background: #d84955;
+}

@@ -1,0 +1,16 @@
+$main-color:#7fabf8;
+$gray:#888;
+// Break Points
+
+$breakpoints:(
+    xs:576px,
+    sm:768px,
+    md:992px,
+    lg:1200px,
+);
+
+:root {
+    --light-grey: hsl(198, 34%, 22%);
+    --dark-grey: hsl(198, 34%, 15%);
+    --orange: 255, 151, 0;
+}

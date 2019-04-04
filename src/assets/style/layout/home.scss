@@ -1,0 +1,87 @@
+.home{
+    background: url(.././img/home.jpg);
+    min-height: 100vh;
+    background-size: cover;
+    background-position: bottom;
+    position: relative;
+    &::after{
+        position: absolute;
+        content: '';
+        height: 100%;
+        background: rgba(0, 0, 0, .5);
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+}
+.loading{
+    position: absolute;
+    height: 5px;
+    background: #7fabf8;
+    z-index: 99;
+    animation: loading 2s;
+}
+
+.spinner{
+    background: rgba(0, 0, 0, .4);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    .loader{
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-top: 5px solid $main-color;
+        border-right: 5px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear 0s infinite;
+        top: 50%;
+        left: 50%;
+        margin-left: -40px;
+        margin-top: -40px;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loading{
+    from{
+        width:0%
+    }
+    to{
+        width:95%
+    }
+}
+.logo{
+    width: 250px;
+    display: block;
+    margin: auto;
+}
+
+.contact-us{
+    margin-top:20px;
+    li{
+        color: #e4e4e4;
+        text-transform: capitalize;
+        font-size: 17px;
+        margin-bottom: 8px;
+    }
+}
+
+.reverse-mobile{
+    @include breakpoint('max-width','md'){
+        order:2
+    }
+}

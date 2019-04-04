@@ -1,0 +1,11 @@
+@mixin breakpoint($type,$media){
+    @if map-has-key($breakpoints , $media ){
+        $get : map-get($breakpoints, $media);
+        @media(#{$type}: #{$get}){
+            @content;
+        }
+    }
+    @else{
+        @error #{$media} + " is not defined";
+    }
+}

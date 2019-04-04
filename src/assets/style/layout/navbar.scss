@@ -1,0 +1,15 @@
+.navbar{
+    border-bottom: 1px solid #676767;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    li{
+        display: inline-block;
+    }
+    a{
+        color:#fff;
+        text-decoration: none;
+        padding:10px;
+        text-transform: capitalize
+    }
+}
