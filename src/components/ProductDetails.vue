@@ -58,9 +58,9 @@
 export default {
     data(){
         return{
-            all_options:[],
+            all_options:[2],
             options:{
-                single_option:'',
+                single_option:2,
                 multiple_option:[]
             },
             cost:0,
@@ -132,7 +132,6 @@ export default {
             });
         },
         addToCart(productInfo){
-
             let storeProuct = {
                 id:productInfo.id,
                 name:productInfo.name,
@@ -172,7 +171,6 @@ export default {
                 else{
                     localStorage.setItem('restaurant_cart',JSON.stringify([storeProuct]))
                     localStorage.setItem('storeBranchCartId',JSON.stringify(this.currentBranchId))
-                    console.log(JSON.parse(localStorage.getItem('storeBranchCartId')))
                 }
             }
 

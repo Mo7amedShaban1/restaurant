@@ -57,8 +57,12 @@ export default {
                 password: '',
             }),
             token:JSON.parse(localStorage.getItem('restaurant_token')),
-            loading:false
+            loading:false,
+            routePrevious:''
         }
+    },
+    watch:{
+
     },
     beforeCreate(){
         if(JSON.parse(localStorage.getItem('restaurant_token'))){
@@ -75,10 +79,16 @@ export default {
             .then((res => {
                 setTimeout(() => {
                     this.loading = false;
-                    this.$router.push('/')
                 })
                 localStorage.setItem('restaurant_token',JSON.stringify(res.data.token))
                 this.$axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+                if(JSON.parse(localStorage.getItem('router_previous')) == '/cart'){
+                    this.$router.push('/checkout')
+                }
+                else{
+                    this.$router.push('/')
+                }
+                
             }))
             .catch(error => {
                 

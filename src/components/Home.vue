@@ -8,10 +8,11 @@
                 <ul class="list-rest mb-0">
                     <router-link tag="li" to="/"><a>Home</a></router-link>
                     <router-link tag="li" to="/cart"><a>Cart</a></router-link>
-                    <router-link tag="li" to="/register"><a>register</a></router-link>
+                    <router-link tag="li" to="/register" v-if="ifUserLogin"><a>register</a></router-link>
                 </ul>
                 <ul class="list-rest ml-auto mb-0">
-                    <router-link tag="li" to="/login"><a>Login</a></router-link>
+                    <router-link tag="li" to="/login" v-if="ifUserLogin"><a>Login</a></router-link>
+                    <li @click="logout" v-if="!ifUserLogin"><a href="#">Logout</a></li>
                     <li><a href="#" class="uppercase">en</a></li>
                 </ul>
             </div>
@@ -76,6 +77,7 @@ export default {
             currentBranchId:this.$route.params.branch,
             hiddenBranchInfo:false,
             spinnerLoding:true,
+            ifUserLogin:true,
         }
     },
     created(){
@@ -84,6 +86,9 @@ export default {
             this.getBranchInfo();
         }else{
             this.hiddenBranchInfo = false
+        }
+        if(JSON.parse(localStorage.getItem('restaurant_token'))){
+            this.ifUserLogin = false
         }
     },
     watch:{
@@ -95,6 +100,11 @@ export default {
                 this.hiddenBranchInfo = false
             }
         },
+        "$route"(to,from){
+            if(JSON.parse(localStorage.getItem('restaurant_token'))){
+                this.ifUserLogin = false
+            }
+        }
     },
     methods: {
 
@@ -120,7 +130,11 @@ export default {
         },
         toggleClass(e){
             this.isActive =! this.isActive;
-        }   
+        },
+        logout(){
+            this.ifUserLogin = true,
+            window.localStorage.removeItem('restaurant_token')
+        }
     }
 }
 </script>

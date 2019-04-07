@@ -43,7 +43,6 @@
 <script>
 
 import mapPicker from './MapPicker'
-import { Form, HasError, AlertError } from 'vform'
 
 export default {
     data(){
@@ -53,7 +52,7 @@ export default {
                 phone:'',
                 payment_methods:'Cash',
                 information:'',
-                branch_id:JSON.parse(localStorage.getItem('restaurant_token')),
+                branch_id:JSON.parse(localStorage.getItem('storeBranchCartId')),
                 address:'',
                 latitude:'',
                 longitude:'',
@@ -63,7 +62,6 @@ export default {
     },
     components:{
         mapPicker,
-        HasError
     },
     beforeCreate(){
         if(JSON.parse(localStorage.getItem('restaurant_token')));
@@ -81,7 +79,7 @@ export default {
             this.checkOut.longitude = location.lng
         },
         sendOrder(){
-            let newArr = []
+            this.checkOut.products = [];
             this.cartProducts.filter(item => {
                 this.checkOut.products.push({
                     product_id: item.id,
@@ -90,9 +88,20 @@ export default {
                     note:'',
                 })
             })
-            this.$axios.post('/checkout')
+            console.log(this.checkOut)
+            this.$axios.post('/checkout',{
+                branch_id:this.checkOut.branch_id,
+                address:this.checkOut.address,
+                latitude:this.checkOut.latitude,
+                longitude:this.checkOut.longitude,
+                phone:this.checkOut.phone,
+                information:this.checkOut.information,
+                products:this.checkOut.products
+            })
             .then(res => {
-                console.log(res)
+                this.$router.push('/thank')
+                localStorage.removeItem('restaurant_cart')
+                localStorage.removeItem('storeBranchCartId')
             })
             .catch(error => {
                 if(error.response){

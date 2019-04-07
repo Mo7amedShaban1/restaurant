@@ -39,17 +39,36 @@ const router = new VueRouter({
         }, 
         {
             path:'/checkout',component:checkout,
+            beforeEnter(to,from,next){
+                if(JSON.parse(localStorage.getItem('restaurant_cart')));
+                else{
+                    next('/')
+                }
+                next()
+            }
         },
         {
             path:'/oops',component:oops
         },
         {
-            path:'/thank',component:thank
+            path:'/thank',component:thank,
+            beforeEnter(to,from,next){
+                if(from.path  == '/checkout');
+                else{
+                    next('/')
+                }
+                next()
+            }
         },
         {
             path:'*',component:oops
         } 
     ]
+})
+
+router.beforeEach((to, from, next) => {
+    localStorage.setItem('router_previous',JSON.stringify(from.path));
+    next()
 })
 
 export default router;

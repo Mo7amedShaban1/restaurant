@@ -35,6 +35,7 @@ axiosInst.interceptors.response.use(
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 axios.defaults.headers.common['X-Accept-Language'] = 'en';
+axios.defaults.headers.common['Accept'] = 'application/json';
 axios.defaults.baseURL = 'http://restaurant.laraeast.com/api/';
 axios.defaults.timeout = 10000;
 
