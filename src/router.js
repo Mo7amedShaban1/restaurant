@@ -9,6 +9,14 @@ import register from './components/Register'
 import cart from './components/Cart'
 import oops from './components/Oops'
 import thank from './components/Thank'
+import verify from './components/VerifyPhone'
+import addPhone from './components/AddPhone'
+import editProfile from './components/EditProfile'
+import profile from './components/Profile'
+import orders from './components/Orders'
+import order from './components/SingleOrder'
+import forgetPassword from './components/forgetPass'
+import newPass from './components/NewPass'
 
 Vue.use(VueRouter)
 
@@ -29,14 +37,47 @@ const router = new VueRouter({
             component:productDetails,
         },
         {
-            path:'/login',component:login,
+            path:'/login',component:login,name:'login'
         },
         {
-            path:'/register',component:register
+            path:'/register',component:register, name: 'register'
         },
         {
             path:'/cart',component:cart,
         }, 
+        {
+            path:'/verify',component:verify
+        },
+        {
+            path:'/editProfile',component:editProfile
+        },
+        {
+            path:'/profile',component:profile, name: 'profile',
+        },
+        {
+            path:'/orders',component:orders,
+        },
+        {
+            path:'/orders/:order',
+            component:order,
+            name:'order.show'
+        },
+        {
+            path:'/forgetPassword',component:forgetPassword
+        },
+        {
+            path:'/newPass',component:newPass
+        },
+        {
+            path:'/addPhone',component:addPhone,
+            beforeRouteUpdate  (to,from,next){
+                if(from.path  == '/login');
+                else{
+                    next('/')
+                }
+                next()
+            }
+        },
         {
             path:'/checkout',component:checkout,
             beforeEnter(to,from,next){

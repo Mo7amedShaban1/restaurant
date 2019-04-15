@@ -46,7 +46,7 @@ export default {
     methods: {
         getBranchProduct(){
             this.hiddenAllProduct = false;
-            this.axiosInstance.get(`categories_with_products?branch_id=${this.currentBranchId}`)
+            this.$axios.get(`categories_with_products?branch_id=${this.currentBranchId}`)
             .then(res => {
                 this.hiddenAllProduct = true;
                 this.branchProducts = res.data.data;

@@ -22,7 +22,7 @@
                 <input type="tel" class="br-radius mt-0 w-100" placeholder="Your phone" v-model="checkOut.phone">
             </div>
             <div class="input">
-                <textarea name="" class="br-radius mt-0 w-100" placeholder="Address in details" v-model="checkOut.information"></textarea>
+                <textarea name="" class="br-radius mt-0 w-100" placeholder="Add some information" v-model="checkOut.information"></textarea>
             </div>
             <h3 class="title small">Address</h3>
             <mapPicker @place-changed="placeChanged"></mapPicker>
@@ -33,10 +33,12 @@
                 <li><strong>Address : </strong> <span> {{ checkOut.address }} </span></li>
                 <li><strong>Payment methods : </strong> <span> {{ checkOut.payment_methods }} </span></li>
                 <li><strong>Information : </strong> <span> {{ checkOut.information }} </span></li>
-                <!-- <li><strong>Total price : </strong></li> -->
             </ul>
         </form>
-        <button class="default_btn mt-0 fixed_bottom col-lg-5" @click="sendOrder">Send Order</button>
+        <button class="default_btn mt-0 br-radius" @click="sendOrder">Send Order</button>
+        <div class="spinner absolute no-background" v-if="loading">
+            <div class="loader"></div>
+        </div>
     </div>
 </template>
 
@@ -57,7 +59,8 @@ export default {
                 latitude:'',
                 longitude:'',
                 products:[],
-            }
+            },
+            loading:false
         }
     },
     components:{
@@ -88,7 +91,7 @@ export default {
                     note:'',
                 })
             })
-            console.log(this.checkOut)
+            this.loading = true;
             this.$axios.post('/checkout',{
                 branch_id:this.checkOut.branch_id,
                 address:this.checkOut.address,
@@ -100,18 +103,28 @@ export default {
             })
             .then(res => {
                 this.$router.push('/thank')
+                console.log('res')
                 localStorage.removeItem('restaurant_cart')
                 localStorage.removeItem('storeBranchCartId')
             })
             .catch(error => {
-                if(error.response){
-                    if(error.response.status == 401){
+                this.loading = false;
+                if(error.status == 401){
+                    setTimeout(() => {
                         localStorage.removeItem('restaurant_token')
                         this.$router.push('/login')
-                    }
+                    },3000)
                 }
-                else{
-                    console.log(error)
+                else if(error.status == 422){
+                    let errorCheck = JSON.parse(error.request.response)
+                    if(errorCheck.errors.checkout){
+                        document.querySelector('.notify.invalid').classList.add('active')
+                    }
+                    else{
+                        setTimeout(() => {
+                            this.$router.push('/verify')
+                        },1000)
+                    }
                 }
             })
         }

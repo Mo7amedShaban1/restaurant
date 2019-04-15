@@ -106,8 +106,17 @@
         width: 30px;
     }
     .map-wrapper input.search-address {
-        position: absolute;
+        /* position: absolute;
         z-index: 1;
-        width: 100%;
+        width: 100%; */
+      height: 50px;
+      border-radius: 30px;
+      position: absolute;
+      z-index: 9;
+      outline:none;
+      margin-top:10px;
+      left:10px;
+      right: 10px;
+      width:calc(100% - 20px)
     }
 </style>

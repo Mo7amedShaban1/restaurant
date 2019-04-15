@@ -38,21 +38,11 @@
                 </label>
                 <input type="password" id="passconfirm" placeholder="Confirm Password" v-model="form.password_confirmation">
             </div>
-            <ul class="list-rest mb-0 text-center mb-4 social-media">
-                <li class="inline-block"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li class="inline-block"><a href="#"><i class="fab fa-twitter"></i></a></li>
-            </ul>
+
             <button class="default_btn br-radius mt-0" @click.stop.prevent="register">Register</button>
             <p class="text-center p-3 mb-0">If You Have Account</p>
             <button class="default_btn btn2 br-radius mt-0" @click.stop.prevent="geToLogin">Login</button>
 
-            <div>
-                <has-error :form="form" field="first_name" class="notify warning active"></has-error>
-                <has-error :form="form" field="last_name" class="notify warning active"></has-error>
-                <has-error :form="form" field="phone_number" class="notify warning active"></has-error>
-                <has-error :form="form" field="email" class="notify warning active"></has-error>
-                <has-error :form="form" field="password" class="notify warning active"></has-error>
-            </div>
             <div class="spinner absolute no-background" v-if="loading">
                 <div class="loader"></div>
             </div>
@@ -63,26 +53,21 @@
 
 <script>
 
-import { Form, HasError, AlertError } from 'vform'
-
 export default {
-    components:{
-        HasError
-    },
     data(){
         return{
-            form: new Form({
+            form: {
                 first_name:'',
                 last_name:'',
                 phone_number:'',
                 email:'',
                 password:'',
                 password_confirmation:''
-            }),
+            },
             loading:false
         }
     },
-    beforeCreate(){
+    created(){ 
         if(JSON.parse(localStorage.getItem('restaurant_token'))){
             this.$router.push('/')
         }
@@ -90,19 +75,28 @@ export default {
     methods:{
         register(){
             this.loading = true
-            this.form.post('/register')
+            this.$axios.post('/register', this.form)
             .then((res => {
                 setTimeout(() => {
                     this.loading = false;
-                    this.$router.push('/')
+                    localStorage.setItem('restaurant_profile',JSON.stringify(res.data.data))
+                    localStorage.setItem('restaurant_token',JSON.stringify(res.data.token))
+                    this.$axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+                    if(res.data.data.verified){
+                        if(JSON.parse(localStorage.getItem('router_previous')) == '/cart'){
+                            this.$router.push('/checkout')
+                        }
+                        else{
+                            this.$router.push('/')
+                        }
+                    }
+                    else{
+                        this.$router.push('/verify')
+                    }
                 })
-                localStorage.setItem('restaurant_token',JSON.stringify(res.data.token))
-                this.$axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
             }))
             .catch(error => {
-                setTimeout(() => {
-                    this.loading = false
-                })
+                this.loading = false
             })
         },
         geToLogin(){

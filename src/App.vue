@@ -4,11 +4,10 @@
       <!-- <div class="loading" v-if="loading" style="width:0%"></div> -->
       <div class="row">
         <div class="col-lg-5 p-0 scroll-bar reverse-mobile">
-          <div class="notify warning">Your already added products from another branch Go to cart and check out these products first or delete it</div>
-          <div class="notify-internet warning">no connection to the internet</div>
-          <div class="notify success">done! You added this product to the cart</div>
+          <div class="notify warning"></div>
+          <div class="notify success"></div>
           <transition  name="fade">
-            <router-view></router-view>
+            <router-view :token = "setToken" ></router-view>
           </transition>
         </div>
         <div class="col-lg-7 p-0">
@@ -26,14 +25,17 @@ import home from './components/Home';
 export default {
   data(){
     return{
+      setToken : ''
     }
   },
   name: 'app',
   components:{
     home,
   },
-  computed:{
-
+  created(){
+    EventBus.$on('token', token => {
+        this.setToken = token
+    });
   },
 }
 </script>

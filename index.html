@@ -8,44 +8,22 @@
     <link rel="stylesheet" href="">
   </head>
   <body>
-      <button id="share-button" type="button">Share</button>
 
     <div id="app"></div>
 
     <script>
-      //Load the JavaScript SDK asynchronously
-      (function (d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "https://connect.facebook.net/en_US/sdk.js";
-          fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-
-      window.fbAsyncInit = function () {
-      //FB JavaScript SDK configuration and setup
-        FB.init({
-            appId: '332563214058827', //FB App ID
-            cookie: true,  //enable cookies to allow the server to access the session
-            xfbml: true,  //parse social plugins on this page
-            version: 'v3.2' //use this graph api version 3.2
-        });
-    }
-
-    document.getElementById('share-button').addEventListener('click', function () {
-    FB.ui({
-        method: 'share',
-        href: window.location.href
-    }, function (response) {
-        if (!response) {
-            console.log('User did not share the page.');
+        window.fbAsyncInit = function () {
+            //FB JavaScript SDK configuration and setup
+            FB.init({
+                appId: '332563214058827', //FB App ID
+                cookie: true,  //enable cookies to allow the server to access the session
+                xfbml: true,  //parse social plugins on this page
+                version: 'v3.2' //use this graph api version 3.2
+            });
         }
-        else {
-            console.log('User shared the page!');
-        }
-    });
-});
-  </script>
+
+    </script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script src="/dist/build.js"></script>
   </body>
 </html>

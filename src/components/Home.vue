@@ -8,11 +8,12 @@
                 <ul class="list-rest mb-0">
                     <router-link tag="li" to="/"><a>Home</a></router-link>
                     <router-link tag="li" to="/cart"><a>Cart</a></router-link>
-                    <router-link tag="li" to="/register" v-if="ifUserLogin"><a>register</a></router-link>
+                    <router-link tag="li" :to="{name: 'register'}" v-show="ifUserLogin"><a>register</a></router-link>
+                    <router-link tag="li" :to="{name: 'profile'}" v-show="!ifUserLogin"><a>profile</a></router-link>
+                    <router-link tag="li" to="/orders" v-show="!ifUserLogin"><a>orders</a></router-link>
                 </ul>
                 <ul class="list-rest ml-auto mb-0">
-                    <router-link tag="li" to="/login" v-if="ifUserLogin"><a>Login</a></router-link>
-                    <li @click="logout" v-if="!ifUserLogin"><a href="#">Logout</a></li>
+                    <router-link tag="li" :to="{name:'login'}" v-show="ifUserLogin"><a>Login</a></router-link>
                     <li><a href="#" class="uppercase">en</a></li>
                 </ul>
             </div>
@@ -65,8 +66,6 @@
 
 <script>
 
-import { mapActions } from 'vuex'
-
 export default {
     data(){
         return{
@@ -93,23 +92,25 @@ export default {
     },
     watch:{
         "$route.params.branch"(to,from){
+            this.hiddenBranchInfo = false
             if(to){
                 this.currentBranchId = this.$route.params.branch;
                 this.getBranchInfo()
-            }else{
-                this.hiddenBranchInfo = false
             }
         },
         "$route"(to,from){
             if(JSON.parse(localStorage.getItem('restaurant_token'))){
                 this.ifUserLogin = false
             }
+            else{
+                this.ifUserLogin = true
+            }
         }
     },
     methods: {
 
         getAllBranch(){
-            this.axiosInstance.get('/branches')
+            this.$axios.get('/branches')
             .then((response) => {
                 this.spinnerLoding = false;
                 return response.data.data;
@@ -120,21 +121,19 @@ export default {
         getBranchInfo(){
             this.spinnerLoding = true;
             this.hiddenBranchInfo = false;
-            this.axiosInstance.get(`branches/${this.currentBranchId}`)
+            this.$axios.get(`branches/${this.currentBranchId}`)
             .then(res => {
-                this.spinnerLoding = false;
                 this.hiddenBranchInfo = true;
                 this.branchInfo = res.data.data;
+                setTimeout(()=>{
+                    this.spinnerLoding = false;
+                },1000)
             })
             
         },
         toggleClass(e){
             this.isActive =! this.isActive;
         },
-        logout(){
-            this.ifUserLogin = true,
-            window.localStorage.removeItem('restaurant_token')
-        }
     }
 }
 </script>

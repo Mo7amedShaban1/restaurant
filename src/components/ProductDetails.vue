@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="single-product grid-l" v-show="hiddenProduct">
+        <div class="single-product grid-l min-h-100" v-show="hiddenProduct">
             <ul class="nav list-rest">
                 <li><a @click="routerBack" style="cursor:pointer"><i class="fas fa-arrow-left"></i></a></li>
             </ul>
@@ -44,7 +44,7 @@
                 <h4 class="co-gray w-100 capitalize mb-3">specail notes</h4>
                 <p class="capitalize co-gray mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus</p>
             </div>
-            <button class="default_btn" @click="addToCart(productInfo)">add to cart</button>
+            <button class="default_btn br-radius" @click="addToCart(productInfo)">add to cart</button>
         </div>
         
         <div class="spinner inherit" v-if="!hiddenProduct">
@@ -90,7 +90,7 @@ export default {
     methods:{
         product(){
             this.currentProductId = this.$route.params.product;
-            this.axiosInstance.get(`products/${this.currentProductId}`)
+            this.$axios.get(`products/${this.currentProductId}`)
             .then((response) => {
                 setTimeout(() => {
                     this.hiddenProduct = true;
@@ -101,7 +101,12 @@ export default {
             })
         },
         routerBack(){
-            this.$router.go(-1)
+            if(JSON.parse(localStorage.getItem('router_previous')).includes("branches")){
+                this.$router.go(-1)
+            }
+            else{
+                this.$router.push('/')
+            }
         },
         counter(type){
             if(type == "inc"){
@@ -177,6 +182,7 @@ export default {
             if(!JSON.parse(localStorage.getItem('storeBranchCartId'))){
                 ifPropExist()
                 document.querySelector('.notify.success').classList.add('active');
+                document.querySelector('.notify.success').innerHTML = " done! You added this product to the cart "
                 setTimeout(() =>{
                     document.querySelector('.notify.success').classList.remove('active')
                 },3000)
@@ -185,12 +191,14 @@ export default {
                 if(JSON.parse(localStorage.getItem('storeBranchCartId')) == storeProuct.branchid){
                     ifPropExist()
                     document.querySelector('.notify.success').classList.add('active');
+                    document.querySelector('.notify.success').innerHTML = " done! You added this product to the cart "
                     setTimeout(() =>{
                         document.querySelector('.notify.success').classList.remove('active')
                     },3000)
                 }
                 else{
                     document.querySelector('.notify.warning').classList.add('active');
+                    document.querySelector('.notify.warning').innerHTML = " Your already added products from another branch Go to cart and check out these products first or delete it ";
                 setTimeout(() =>{
                     document.querySelector('.notify.warning').classList.remove('active')
                 },3000)

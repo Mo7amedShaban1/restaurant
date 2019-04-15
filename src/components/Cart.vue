@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="grid-l" v-if="isCartEmpty">
+        <div class="grid-l d-flex flex-column" v-if="isCartEmpty">
             <ul class="nav list-rest">
                 <li><a @click="routerBack" style="cursor:pointer"><i class="fas fa-arrow-left"></i></a></li>
             </ul>
@@ -22,7 +22,7 @@
                     <h4 class="mb-0">Total</h4>
                     <span class="price"> $ {{ calcTotal() }} </span>
                 </div>
-                <button class="default_btn mt-0" @click="goToCheckOut">Check out</button>
+                <button class="default_btn mt-4 br-radius" @click="goToCheckOut">Check out</button>
             </div>
         </div>
         <div class="grid-l d-flex h-100 align-items-center" v-if="! isCartEmpty">
