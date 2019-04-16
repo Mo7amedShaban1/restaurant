@@ -103,18 +103,20 @@
 
 .notify,.notify-internet{
     position: fixed;
-    max-width: 100%;
-    min-width: 400px;
+    width: 400px;
     text-align: center;
     color: #fff;
     text-transform: capitalize;
-    padding: 15px 0;
+    padding: 15px;
     left: 0;
     top: 30px;
     visibility:hidden;
     opacity: 0;
     z-index: 99;
     transition: all .5s ease-in;
+    @include breakpoint('max-width','sm'){
+        max-width: 100%;
+    }
     &.active{
         opacity: 1;
         visibility:inherit;

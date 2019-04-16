@@ -5,15 +5,15 @@
 
             <div class="order">
                 <div class="status">
-                    <div class="state accepted active">
+                    <div :class="`state accepted ${(statuses[order.status] >= 1 ? 'active' : '')}`">
                         <span class="state_date">15-8-2018</span>
                         <p class="m-0">Order accepted</p>
                     </div>
-                    <div class="state accepted active">
+                    <div :class="`state accepted ${(statuses[order.status] >= 2 ? 'active' : '')}`">
                         <span class="state_date">15-8-2018</span>
                         <p class="m-0">Starting make your order</p>
                     </div>
-                    <div class="state accepted">
+                    <div :class="`state accepted ${(statuses[order.status] >= 7 ? 'active' : '')}`">
                         Delivery will coming
                     </div>
                 </div>
@@ -24,6 +24,7 @@
                     <p>Status : <span>{{ order.status }}</span></p>
                     <p>Phone : <span>{{ order.phone }}</span></p>
                     <p>Branch name : <span>{{ order.branch.name }}</span></p>
+                    
                 </div>
             </div>
             <button class="default_btn br-radius mt-4">Show Map</button>
@@ -39,7 +40,17 @@ export default {
     data(){
         return{
             order:'',
-            loading:false
+            loading:false,
+            statuses:{
+                pending: 0,
+                accepted: 1,
+                preparing: 2,
+                prepared: 3,
+                assigned_to_driver: 4,
+                packed: 5,
+                on_the_way: 6,
+                delivered: 7,
+            }
         }
     },
     created(){
