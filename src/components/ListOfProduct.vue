@@ -16,14 +16,17 @@
                 </router-link>
             </div>
         </div>
-        <div class="spinner inherit" v-if="!hiddenAllProduct">
-            <div class="loader"></div>
-        </div>
+        <Loading :status="!hiddenAllProduct"></Loading>
     </div>
 </template>
 <script>
 
+import Loading from './Loading'
+
 export default {
+    components:{
+        Loading
+    },
     data(){
         return{
             branchProducts:'',

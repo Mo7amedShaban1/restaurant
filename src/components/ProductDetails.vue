@@ -46,16 +46,18 @@
             </div>
             <button class="default_btn br-radius" @click="addToCart(productInfo)">add to cart</button>
         </div>
-        
-        <div class="spinner inherit" v-if="!hiddenProduct">
-            <div class="loader"></div>
-        </div>
+        <Loading :status="!hiddenProduct"></Loading>
     </div>
 </template>
 
 <script>
 
+import Loading from './Loading'
+
 export default {
+    components:{
+        Loading
+    },
     data(){
         return{
             all_options:[2],
