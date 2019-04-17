@@ -25,8 +25,9 @@
                 <button class="default_btn mt-4 br-radius" @click="goToCheckOut">Check out</button>
             </div>
         </div>
-        <div class="grid-l d-flex h-100 align-items-center" v-if="! isCartEmpty">
+        <div class="grid-l d-flex h-100 align-items-center flex-column justify-content-center" v-if="! isCartEmpty">
             <div class="title">The Cart is empty go to shopping</div>
+            <button class="default_btn br-radius" @click="goToAddProduct">Go to add product</button>
         </div>
 
     </div>
@@ -48,6 +49,9 @@ export default {
 
     },
     methods:{
+        goToAddProduct(){
+            this.$router.push('/')
+        },
         routerBack(){
             this.$router.go(-1)
         },

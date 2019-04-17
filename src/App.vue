@@ -45,14 +45,14 @@ export default {
     overflow: hidden;
   }
  .fade-enter-active {
-  transition: all .3s ease;
+  transition: all 1s ease;
 }
 .fade-leave-active {
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .fade-enter, .fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
+  transform: translateX(20px);
   opacity: 0;
 }
 </style>

@@ -46,7 +46,7 @@
             </div>
             <button class="default_btn br-radius" @click="addToCart(productInfo)">add to cart</button>
         </div>
-        <Loading :status="!hiddenProduct"></Loading>
+        <Loading :status="!hiddenProduct"/>
     </div>
 </template>
 
