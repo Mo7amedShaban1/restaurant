@@ -18,9 +18,7 @@
                     </router-link>
                 </div>
             </div>
-            <div class="spinner absolute no-background" v-if="loading">
-                <div class="loader"></div>
-            </div>
+            <Loading :status="loading"></Loading>
         </div>
         <div class="grid-l d-flex h-100 align-items-center" v-if="empty">
             <div class="title">There is no any orders</div>
@@ -29,7 +27,13 @@
 </template>
 
 <script>
+
+import Loading from "./Loading"
+
 export default {
+    components:{
+        Loading
+    },
     data(){
         return{
             orders:'',
@@ -55,7 +59,6 @@ export default {
                 else{
                     this.empty = true
                 }
-                console.log(res.data.data.length)
                 this.loading = false
             })
         }
