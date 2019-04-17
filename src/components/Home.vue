@@ -164,11 +164,18 @@ export default {
     @media(max-width: 568px) {
         .navbar_toggle{
             display: block!important;
-            border-radius: 2px;
             border: 0;
             padding: 5px 10px;
-            font-size: 15px;
             font-weight: bold;
+            position: fixed;
+            left: 20px;
+            border-radius: 50%;
+            background: #7fabf8;
+            width: 45px;
+            height: 45px;
+            color: #fff;
+            font-size: 19px;
+            z-index: 98;
         }
         .navbar_desktop{
             display: none

@@ -108,8 +108,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    document.querySelector('.mobile').classList.remove('show')
-    document.querySelector('.navbar_mobile').classList.remove('show')
+    if(document.querySelector('.mobile.show')){
+        document.querySelector('.mobile').classList.remove('show')
+        document.querySelector('.navbar_mobile').classList.remove('show')
+    }
     if(to.params.branch){
         localStorage.setItem('current_branchId',JSON.stringify(to.params.branch))
     }
