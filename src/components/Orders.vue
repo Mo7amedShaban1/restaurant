@@ -53,13 +53,13 @@ export default {
             this.loading = true
             this.$axios.get('orders/')
             .then(res => {
+                this.loading = false
                 if(res.data.data.length){
                     this.orders = res.data.data;
                 }
                 else{
                     this.empty = true
                 }
-                this.loading = false
             })
         }
     }
